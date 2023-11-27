@@ -1,35 +1,73 @@
 //this includes the vehicle class as a module
-const VehicleModule = require("./vehicleBaseClass")
+const VehicleModule = require("./vehicleBaseClass").Vehicle
 
-//this shows how to call from this module...
-let v = new VehicleModule.Vehicle("Mercury", "Sedan", "1965", "color", "mileage");
-console.log(v.make)
+class Car extends VehicleModule {
+    constructor(make,model,year,color,mileage) {
+        super(make,model,year,color,mileage);
+        this.maxPassangers = 5;
+        this.passenger = 0;
+        this.numberOfWheels = 4;
+        this.maxSpeed = 160;
+        this.fuel = 10;
+        this.scheduleService = false;
+    }
+
+    loadPassenger(passengerCount) {
+        this.passenger = passengerCount
+        if (this.passenger > this.maxPassangers) {
+            console.log("That many people wont fit in the car!")
+        }
+        else {
+            console.log("Everyone fits nicely!")
+        }
+    }
+
+    start() {
+        if (this.make !== 'Mercury') {
+            this.fuel = 0
+        }
+        if (this.fuel > 0) {
+            console.log("You have enough fuel to start the car, but since these instructions are horribly organized, there's no value to set to true in this case...")
+        }
+        else {
+            console.log("You don't have enough fuel to start the car, but that doesn't matter since HackerU can't be bothered to update their assignments or instructions ever")
+        }
+    }
+
+    scheduledService() {
+        if (this.mileage > '30000'){
+            console.log("It's time to service the car.")
+            this.scheduleService = true
+            return this.scheduleService
+        }
+        else {
+            console.log("It's not time to service the car yet.")
+            return this.scheduleService
+        }
+    }
+}
+
+let carOne = new Car('Mercury', 'sedan', '2023', 'green', 15293)
+
+console.log(carOne)
+
+carOne.start()
+carOne.loadPassenger(3)
+carOne.scheduledService()
 
 
-//After you write the derived Car class, you should test it out.
+let carTwo = new Car('Ford', 'Coup', '1964', 'Black', 105342)
 
-//Note: You can code your derived Car class here or make a file named index.js and do it there.
+console.log(carTwo)
 
+carTwo.start()
+carTwo.loadPassenger(2)
+carTwo.scheduledService()
 
-//TO DO: Code the Car subclass here or in index.js file, i.e. class Car extends Vehicle ...
+let carThree = new Car('Jeep', 'Truck', '2020', 'Red', 30000)
 
+console.log(carThree)
 
-
-
-
-
-
-
-
-
-
-
-//TO DO: Creating Instances and Testing Them
-
-//You can use the same instance "v" of the Vehicle class above for the base class.
-
-
-
-
-
-//Create at least two new instances of the Car class and test them here:
+carThree.start()
+carThree.loadPassenger(6)
+carThree.scheduledService()
